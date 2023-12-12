@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9b2cb7b2-14d6-4d34-a3a4-141a0bd6009d">
+	<property name="ireport.zoom" value="2.593742460100007"/>
+	<property name="ireport.x" value="6"/>
+	<property name="ireport.y" value="82"/>
+	<parameter name="querySearch" class="java.lang.String"/>
+	<parameter name="searchBy" class="java.lang.String"/>
+	<field name="idSkripsi" class="java.lang.String"/>
+	<field name="judulSkripsi" class="java.lang.String"/>
+	<field name="penulisSkripsi" class="java.lang.String"/>
+	<field name="tahunSkripsi" class="java.lang.String"/>
+	<field name="halamanSkripsi" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="62" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="556" height="62" backcolor="#9999FF" uuid="bca2c8f7-c90c-46a3-ad31-65f63c1fd636"/>
+			</frame>
+			<staticText>
+				<reportElement x="176" y="0" width="239" height="48" forecolor="#FFFFFF" uuid="25317e8a-f9cb-4014-a059-2a96a3d3a501"/>
+				<textElement textAlignment="Center">
+					<font size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Skripsi]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="32" y="11" width="484" height="24" uuid="59fc8e84-7a49-4f36-af81-f859f9b50e09"/>
+				<textFieldExpression><![CDATA["Hasil pencarian dari " + $P{querySearch} +" berdasarkan pada kolom " + $P{searchBy} +" hasilnya adalah:"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="69" height="27" uuid="78608eea-9d80-46d0-a4cd-551f5c9b6bf8"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="16"/>
+				</textElement>
+				<text><![CDATA[ID skripsi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="0" width="262" height="27" uuid="883cab16-3611-46ae-993e-3cf10cdc71ba"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="16"/>
+				</textElement>
+				<text><![CDATA[Judul skripsi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="0" width="65" height="27" uuid="46f20008-a37f-4046-8d3a-9a194781c82b"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="16"/>
+				</textElement>
+				<text><![CDATA[Penulis skripsi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="0" width="90" height="27" uuid="5f7e4600-dd60-43d1-945b-0c82025977bc"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="16"/>
+				</textElement>
+				<text><![CDATA[Tahun skripsi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="486" y="0" width="68" height="27" uuid="060689f6-b5eb-4eb9-85e5-886e35cbe35e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="16"/>
+				</textElement>
+				<text><![CDATA[Halaman skripsi]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="69" height="17" uuid="02d3b331-bab4-47e4-8c8a-c2e182842f13"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{idSkripsi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="0" width="262" height="17" uuid="3b6d833c-061f-4f30-812b-5e36bcdc9821"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{judulSkripsi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="331" y="0" width="65" height="17" uuid="3dd21f44-6831-47df-a705-ffcb36888c35"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{penulisSkripsi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="396" y="0" width="90" height="17" uuid="b314a038-3041-43f4-91d8-864c6666cbf4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tahunSkripsi}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="486" y="0" width="68" height="17" uuid="a73d1531-9ebf-4e13-ae80-aac210ac46a9"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{halamanSkripsi}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,1003 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uaspbo;
+
+import java.awt.BorderLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+
+/**
+ *
+ * @author fauziah
+ */
+public class Peminjaman extends javax.swing.JFrame {
+
+    ArrayList<Peminjaman_1> dataPeminjaman;
+    private int id = 0;
+
+    public void peringatan(String pesan) {
+        JOptionPane.showMessageDialog(rootPane, pesan);
+    }
+
+    public static String date(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
+    }
+
+    public void setIsbnDanJudulBuku(List<String> book) {
+        kode.setText(book.get(0));
+        buku.setText(book.get(1));
+        genre.setText(book.get(2));
+    }
+
+    /**
+     *
+     *
+     *
+     *
+     * Creates new form Peminjaman
+     */
+    public Peminjaman() {
+        try {
+            dataPeminjaman = new ArrayList<>();
+            initComponents();
+            tampil();
+        } catch (Exception e) {
+            Logger.getLogger(Peminjaman.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
+    public String dateChooser;
+
+    private void kosongkan_form() {
+        nomer.setEditable(true);
+        nomer.setText("");
+        anggota.setText("");
+        kode.setText("");
+        buku.setText("");
+        genre.setText("");
+        kelas.setText("");
+        opsi.setSelectedItem("");
+
+    }
+
+    private void tampil() {
+        EntityManager entityManager = Persistence.createEntityManagerFactory("UASPBOPU").createEntityManager();
+        entityManager.getTransaction().begin();
+        TypedQuery<Peminjaman_1> querySelectAll = entityManager.createNamedQuery("Peminjaman_1.findAll", Peminjaman_1.class);
+//        querySelectAll.setParameter("bulan", jComboBox1.getSelectedIndex() + 1);
+//        querySelectAll.setParameter("tahun", Integer.valueOf(jComboBox2.getSelectedItem().toString()));
+        List<Peminjaman_1> results = querySelectAll.getResultList();
+        SimpleDateFormat format1 = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        for (Peminjaman_1 data : results) {
+            try {
+                Date tglpinjam = format1.parse(data.getTanggalPeminjaman().toString());
+                Date tglkembali = format1.parse(data.getTanggalKembali().toString());
+                Object[] baris = new Object[9];
+                baris[0] = data.getIdPeminjaman();
+                baris[1] = data.getNama();
+                baris[2] = data.getIsbn().getIsbn();
+                baris[3] = data.getJudul();
+                baris[4] = data.getIsbn().getKategoriId().getJenis();
+                baris[5] = format.format(tglpinjam);
+                baris[6] = format.format(tglkembali);
+                baris[7] = data.getAngkatan();
+                baris[8] = data.getStatus();
+                model.addRow(baris);
+            } catch (ParseException ex) {
+                Logger.getLogger(Peminjaman.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        entityManager.getTransaction().commit();
+        entityManager.close();
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        nomer = new javax.swing.JTextField();
+        anggota = new javax.swing.JTextField();
+        buku = new javax.swing.JTextField();
+        kode = new javax.swing.JTextField();
+        masuk = new javax.swing.JButton();
+        print = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        cariii = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        pilihan = new javax.swing.JComboBox<>();
+        pinjam = new com.toedter.calendar.JDateChooser();
+        kembali = new com.toedter.calendar.JDateChooser();
+        jLabel10 = new javax.swing.JLabel();
+        kelas = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        opsi = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        genre = new javax.swing.JTextField();
+        lanjutan = new javax.swing.JButton();
+        banyak = new javax.swing.JButton();
+        Update = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Century Schoolbook", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Tanggal kembali ");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 430, 230, 50));
+
+        jLabel3.setFont(new java.awt.Font("Century Schoolbook", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Id peminjaman");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, 190, 30));
+
+        jLabel4.setFont(new java.awt.Font("Century Schoolbook", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Judul buku");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 530, 170, 50));
+
+        jLabel5.setFont(new java.awt.Font("Century Schoolbook", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Nama");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 440, 110, 30));
+
+        jLabel6.setFont(new java.awt.Font("Century Schoolbook", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Tanggal peminjaman");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 380, 280, 50));
+
+        jLabel7.setFont(new java.awt.Font("Century Schoolbook", 0, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Search");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 300, 90, 30));
+
+        nomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomerActionPerformed(evt);
+            }
+        });
+        getContentPane().add(nomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 390, 260, 30));
+
+        anggota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anggotaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(anggota, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, 260, 30));
+
+        buku.setEditable(false);
+        buku.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bukuActionPerformed(evt);
+            }
+        });
+        buku.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bukuKeyTyped(evt);
+            }
+        });
+        getContentPane().add(buku, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 540, 260, 30));
+
+        kode.setEditable(false);
+        kode.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                kodeMouseClicked(evt);
+            }
+        });
+        kode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kodeActionPerformed(evt);
+            }
+        });
+        kode.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                kodeKeyTyped(evt);
+            }
+        });
+        getContentPane().add(kode, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 490, 260, 30));
+
+        masuk.setBackground(new java.awt.Color(204, 204, 255));
+        masuk.setFont(new java.awt.Font("Century Schoolbook", 1, 18)); // NOI18N
+        masuk.setText("Tambahkan ");
+        masuk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                masukActionPerformed(evt);
+            }
+        });
+        getContentPane().add(masuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 670, 150, 40));
+
+        print.setBackground(new java.awt.Color(204, 204, 255));
+        print.setFont(new java.awt.Font("Century Schoolbook", 1, 18)); // NOI18N
+        print.setText("Cetak");
+        print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                printActionPerformed(evt);
+            }
+        });
+        getContentPane().add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 670, 150, 40));
+
+        delete.setBackground(new java.awt.Color(204, 204, 255));
+        delete.setFont(new java.awt.Font("Century Schoolbook", 1, 18)); // NOI18N
+        delete.setText("Hapus");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 670, 150, 40));
+
+        jLabel8.setFont(new java.awt.Font("Century Schoolbook", 1, 24)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Isbn");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, 110, 30));
+
+        cariii.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariiiActionPerformed(evt);
+            }
+        });
+        cariii.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cariiiKeyReleased(evt);
+            }
+        });
+        getContentPane().add(cariii, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 300, 260, 30));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Id peminjaman", " Nama", "Isbn", "Judul buku", "Kategori", "Tanggal peminjaman", "Tanggal kembali", "Angkatan", "Status"
+            }
+        ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 720, 1410, 190));
+
+        pilihan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Id peminjaman", "Nama", "Judul buku", "Angkatan", "Kategori", "Status" }));
+        getContentPane().add(pilihan, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 340, 260, 30));
+        getContentPane().add(pinjam, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 390, 260, 30));
+        getContentPane().add(kembali, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 440, 260, 30));
+
+        jLabel10.setFont(new java.awt.Font("Century Schoolbook", 1, 24)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Status");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 530, 230, 50));
+
+        kelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kelasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(kelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 490, 260, 30));
+
+        jButton1.setText("Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 690, 70, 30));
+
+        jLabel11.setFont(new java.awt.Font("Century Schoolbook", 1, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Angkatan");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 480, 230, 50));
+
+        opsi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dipinjam ", "Dikembalikan" }));
+        opsi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opsiActionPerformed(evt);
+            }
+        });
+        getContentPane().add(opsi, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 540, 260, 30));
+
+        jLabel12.setFont(new java.awt.Font("Century Schoolbook", 1, 24)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Kategori");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 580, 170, 50));
+
+        genre.setEditable(false);
+        genre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genreActionPerformed(evt);
+            }
+        });
+        genre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                genreKeyTyped(evt);
+            }
+        });
+        getContentPane().add(genre, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 590, 260, 30));
+
+        lanjutan.setBackground(new java.awt.Color(204, 204, 255));
+        lanjutan.setFont(new java.awt.Font("Century Schoolbook", 1, 18)); // NOI18N
+        lanjutan.setText("Laporan perbulan");
+        lanjutan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lanjutanActionPerformed(evt);
+            }
+        });
+        getContentPane().add(lanjutan, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 670, 230, 40));
+
+        banyak.setBackground(new java.awt.Color(204, 204, 255));
+        banyak.setFont(new java.awt.Font("Century Schoolbook", 1, 18)); // NOI18N
+        banyak.setText("Laporan Peminjam terbanyak");
+        banyak.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                banyakActionPerformed(evt);
+            }
+        });
+        getContentPane().add(banyak, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 670, 330, 40));
+
+        Update.setBackground(new java.awt.Color(204, 204, 255));
+        Update.setFont(new java.awt.Font("Century Schoolbook", 1, 18)); // NOI18N
+        Update.setText("Update");
+        Update.setActionCommand("Update");
+        Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 670, 130, 40));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gambar/peminjaman.png"))); // NOI18N
+        jLabel2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jLabel2KeyReleased(evt);
+            }
+        });
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1410, 910));
+
+        jLabel9.setFont(new java.awt.Font("Century Schoolbook", 0, 24)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Search");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 310, 90, 30));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void nomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomerActionPerformed
+
+    private void anggotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anggotaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_anggotaActionPerformed
+
+    private void kodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kodeActionPerformed
+
+    private void bukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bukuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bukuActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String idPeminjaman = nomer.getText();
+        String nama = anggota.getText();
+        String isbn = kode.getText();
+        String judul = buku.getText();
+        String kategori = genre.getText();
+        String tanggalPeminjaman = format.format(pinjam.getDate());
+        String tanggalKembali = format.format(kembali.getDate());
+        String angkatan = kelas.getText();
+        String status = (String) opsi.getSelectedItem();
+
+        EntityManager entityManager = Persistence.createEntityManagerFactory("UASPBOPU").createEntityManager();
+        entityManager.getTransaction().begin();
+        TypedQuery<Peminjaman_1> queryindByIdPeminjaman = entityManager.createNamedQuery("Peminjaman_1.findByIdPeminjaman", Peminjaman_1.class);
+        TypedQuery<Peminjaman_1> setParameter = queryindByIdPeminjaman.setParameter("idPeminjaman", idPeminjaman);
+        Peminjaman_1 firstEntity = setParameter.getSingleResult();
+        if (firstEntity != null) {
+            entityManager.remove(firstEntity);
+
+            // Commit transaksi
+            entityManager.getTransaction().commit();
+            this.peringatan("Delete berhasil");
+        } else {
+            this.peringatan("Delete gagal");
+        }
+
+        this.tampil();
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void masukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masukActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String idPeminjaman = nomer.getText();
+        String nama = anggota.getText();
+        String isbn = kode.getText();
+        String judul = buku.getText();
+        String kategori = genre.getText();
+        String tanggalPeminjaman = format.format(pinjam.getDate());
+        String tanggalKembali = format.format(kembali.getDate());
+        String angkatan = kelas.getText();
+        String status = (String) opsi.getSelectedItem();
+
+        EntityManager entityManager = Persistence.createEntityManagerFactory("UASPBOPU").createEntityManager();
+        entityManager.getTransaction().begin();
+
+        Buku_1 abc = entityManager.find(Buku_1.class, isbn);
+        Peminjaman_1 p = new Peminjaman_1();
+        p.setIdPeminjaman(idPeminjaman);
+        p.setNama(nama);
+        p.setIsbn(abc);
+        p.setJudul(judul);
+        p.setAngkatan(angkatan);
+        p.setStatus(status);
+
+        // Set tanggal peminjaman buku
+        try {
+            Date datePeminjaman = format.parse(tanggalPeminjaman);
+            Date dateKembali = format.parse(tanggalKembali);
+            p.setTanggalPeminjaman(datePeminjaman);
+            p.setTanggalKembali(dateKembali);
+
+        } catch (ParseException e) {
+            // Tangani kesalahan jika terjadi kesalahan parsing tanggal
+            e.printStackTrace(); // Gantilah ini dengan penanganan yang sesuai
+        }
+//        p.setNim(nim);
+//        p.setNama(nama);
+//        p.setIsbn(abc);
+//        p.setJudul(judul);
+//        p.setAngkatan(angkatan);
+
+        entityManager.persist(p);
+
+        entityManager.getTransaction().commit();
+        // akhir persistence
+
+        nomer.setText("");
+        anggota.setText("");
+        kode.setText("");
+        buku.setText("");
+        genre.setText("");
+        nomer.setText("");
+        pinjam.setDate(null);
+        kembali.setDate(null);
+        kelas.setText("");
+        opsi.setSelectedItem("");
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        tampil();
+
+    }//GEN-LAST:event_masukActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int baris = jTable1.rowAtPoint(evt.getPoint());
+        String Idpeminjaman = jTable1.getValueAt(baris, 0).toString();
+        nomer.setText(Idpeminjaman);
+
+        String Nama = jTable1.getValueAt(baris, 1).toString();
+        anggota.setText(Nama);
+
+        String Isbn = jTable1.getValueAt(baris, 2).toString();
+        kode.setText(Isbn);
+
+        String Judul = jTable1.getValueAt(baris, 3).toString();
+        buku.setText(Judul);
+
+        String Kategori = jTable1.getValueAt(baris, 4).toString();
+        buku.setText(Kategori);
+
+        String Tanggalpeminjaman = jTable1.getValueAt(baris, 5).toString();
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date d = format.parse(Tanggalpeminjaman);
+
+            pinjam.setDate(d);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String Tanggalkembali = jTable1.getValueAt(baris, 6).toString();
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date d = format.parse(Tanggalkembali);
+            kembali.setDate(d);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String Angkatan = jTable1.getValueAt(baris, 7).toString();
+        kelas.setText(Angkatan);
+
+        String Status = jTable1.getValueAt(baris, 8).toString();
+        opsi.setSelectedItem(Status);
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jLabel2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jLabel2KeyReleased
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jLabel2KeyReleased
+
+    private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
+        // TODO add your handling code here:
+        try {
+            String selection = (String) pilihan.getSelectedItem();
+            String searchTerm = cariii.getText().trim();
+
+            // Building the JPA query dynamically based on the selected criteria
+            String queryString = "SELECT p FROM Peminjaman_1 p  WHERE ";
+            System.out.println(selection.toLowerCase());
+            switch (selection.toLowerCase()) {
+                case "id peminjaman":
+                    queryString += "LOWER(p.idPeminjaman) LIKE LOWER(:searchTerm)";
+                    break;
+                case "nama":
+                    queryString += "LOWER(p.nama) LIKE LOWER(:searchTerm)";
+                    break;
+                case "isbn":
+                    queryString += "LOWER(p.isbn) LIKE LOWER(:searchTerm)";
+                    break;
+                case "judul buku":
+                    queryString += "LOWER(p.judul) LIKE LOWER(:searchTerm)";
+                    break;
+                case "angkatan":
+                    queryString += "LOWER(p.angkatan) LIKE LOWER(:searchTerm)";
+                    break;
+                case "kategori":
+                    queryString += "LOWER(p.isbn.kategoriId.jenis) LIKE LOWER(:searchTerm)";
+                    break;
+
+                case "status":
+                    queryString += "LOWER(p.status) LIKE LOWER(:searchTerm)";
+                    break;
+                default:
+                    throw new IllegalArgumentException("No search criteria selected.");
+            }
+
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("UASPBOPU");
+            EntityManager em = emf.createEntityManager();
+
+            // Check if WHERE clause is not empty
+            if (queryString.endsWith(" WHERE ")) {
+                throw new IllegalArgumentException("No search criteria selected.");
+            }
+
+            TypedQuery<Peminjaman_1> query = em.createQuery(queryString, Peminjaman_1.class);
+            query.setParameter("searchTerm", "%" + searchTerm + "%");
+
+            List<Peminjaman_1> results = query.getResultList();
+            Map<String, Object> parameter = new HashMap<>();
+            parameter.put("deskripsi", "Hasil pencarian dari " + searchTerm + " berdasarkan pada kolom " + selection + " hasilnya adalah:");
+
+            String jrxmlFile = new String("src/uaspbo/kembali.jrxml");
+            JasperReport jr = JasperCompileManager.compileReport(jrxmlFile);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parameter, new JRBeanCollectionDataSource(results));
+            JasperViewer.viewReport(jp, false);
+        } catch (JRException ex) {
+            Logger.getLogger(Peminjaman.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
+            Logger.getLogger(Peminjaman.class.getName()).log(Level.SEVERE, null, e);
+        }
+
+
+    }//GEN-LAST:event_printActionPerformed
+
+    private void kelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kelasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_kelasActionPerformed
+
+    private void cariiiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cariiiKeyReleased
+        // TODO add your handling code here:
+        try {
+            String selection = (String) pilihan.getSelectedItem();
+            String searchTerm = cariii.getText().trim();
+
+            // Building the JPA query dynamically based on the selected criteria
+            String queryString = "SELECT p FROM Peminjaman_1 p  WHERE ";
+            System.out.println(selection.toLowerCase());
+            switch (selection.toLowerCase()) {
+                case "id peminjaman":
+                    queryString += "LOWER(p.idPeminjaman) LIKE LOWER(:searchTerm)";
+                    break;
+                case "nama":
+                    queryString += "LOWER(p.nama) LIKE LOWER(:searchTerm)";
+                    break;
+                case "isbn":
+                    queryString += "LOWER(p.isbn) LIKE LOWER(:searchTerm)";
+                    break;
+                case "judul buku":
+                    queryString += "LOWER(p.judul) LIKE LOWER(:searchTerm)";
+                    break;
+                case "angkatan":
+                    queryString += "LOWER(p.angkatan) LIKE LOWER(:searchTerm)";
+                    break;
+
+                case "kategori":
+                    queryString += "LOWER(p.isbn.kategoriId.jenis) LIKE LOWER(:searchTerm)";
+                    break;
+
+                case "status":
+                    queryString += "LOWER(p.status) LIKE LOWER(:searchTerm)";
+                    break;
+                default:
+                    throw new IllegalArgumentException("No search criteria selected.");
+            }
+            //  queryString += " AND EXTRACT(MONTH FROM p.tanggalPeminjaman) = :bulan AND EXTRACT(YEAR FROM p.tanggalPeminjaman) = :tahun";
+
+            // Create and execute the JPA query
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("UASPBOPU");
+            EntityManager em = emf.createEntityManager();
+            System.out.println(queryString);
+
+            TypedQuery<Peminjaman_1> query = em.createQuery(queryString, Peminjaman_1.class);
+            query.setParameter("searchTerm", "%" + searchTerm + "%");
+//            query.setParameter("bulan", jComboBox1.getSelectedIndex() + 1);
+//            query.setParameter("tahun", Integer.valueOf(jComboBox2.getSelectedItem().toString()));
+            System.out.println(searchTerm);
+
+            List<Peminjaman_1> results = query.getResultList();
+            System.out.println(results.size());
+
+            DefaultTableModel dataModel = new DefaultTableModel();
+
+            // Add columns to the model
+            dataModel.addColumn("Id peminjaman");
+            dataModel.addColumn("Nama");
+            dataModel.addColumn("Isbn");
+            dataModel.addColumn("Judul");
+            dataModel.addColumn("Kategori");
+            dataModel.addColumn("Tanggal pinjam");
+            dataModel.addColumn("Tanggal kembali");
+            dataModel.addColumn("Angkatan");
+            dataModel.addColumn("Status");
+
+            // ... add other columns as needed
+            // Add rows to the model
+            for (Peminjaman_1 result : results) {
+                Object[] rowData = {
+                    result.getIdPeminjaman(),
+                    result.getNama(),
+                    result.getIsbn().getIsbn(),
+                    result.getJudul(),
+                    result.getIsbn().getKategoriId().getJenis(),
+                    result.getTanggalPeminjaman(),
+                    result.getTanggalKembali(),
+                    result.getAngkatan(),
+                    result.getStatus()
+
+                };
+                dataModel.addRow(rowData);
+            }
+
+            // Set jTable1 with the created model
+            jTable1.setModel(dataModel);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+    }//GEN-LAST:event_cariiiKeyReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Beranda Peminjaman = new Beranda();
+        Peminjaman.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void kodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_kodeKeyTyped
+        // TODO add your handling code here:
+//       
+    }//GEN-LAST:event_kodeKeyTyped
+
+    private void bukuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bukuKeyTyped
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_bukuKeyTyped
+
+    private void kodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_kodeMouseClicked
+        // TODO add your handling code here:
+        new ListBuku(this).setVisible(true);
+    }//GEN-LAST:event_kodeMouseClicked
+
+    private void cariiiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariiiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cariiiActionPerformed
+
+    private void genreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_genreActionPerformed
+
+    private void genreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_genreKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_genreKeyTyped
+
+    private void lanjutanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lanjutanActionPerformed
+        // TODO add your handling code here:
+        Bulanan Peminjaman = new bulanan();
+        Peminjaman.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lanjutanActionPerformed
+
+    private void banyakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_banyakActionPerformed
+        // TODO add your handling code here:
+        try {
+            String selection = ((String) pilihan.getSelectedItem()).toLowerCase();
+            String searchTerm = cariii.getText().trim();
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("UASPBOPU");
+            EntityManager em = emf.createEntityManager();
+
+            String queryString = "SELECT p FROM Peminjaman_1 p WHERE ";
+
+            switch (pilihan.getSelectedIndex()) {
+                case 0:
+                    queryString += "LOWER(p.idPeminjaman) LIKE LOWER(:searchTerm)";
+                    break;
+                case 1:
+                    queryString += "LOWER(p.nama) LIKE LOWER(:searchTerm)";
+                    break;
+                case 2:
+                    queryString += "LOWER(p.judul) LIKE LOWER(:searchTerm)";
+                    break;
+                case 3:
+                    queryString += "LOWER(p.angkatan) LIKE LOWER(:searchTerm)";
+                    break;
+                case 4:
+                    queryString += "LOWER(p.isbn.kategoriId.jenis) LIKE LOWER(:searchTerm)";
+                    break;
+
+                case 5:
+                    queryString += "LOWER(p.status) LIKE LOWER(:searchTerm)";
+                    break;
+
+                default:
+                    throw new IllegalArgumentException("No search criteria selected. Selected Criteria: " + selection);
+            }
+
+            TypedQuery<Peminjaman_1> query = em.createQuery(queryString, Peminjaman_1.class);
+            query.setParameter("searchTerm", "%" + searchTerm + "%");
+
+            List<Peminjaman_1> results = query.getResultList();
+
+            results.get(0).getIsbn().getIsbn();
+            if (results.isEmpty()) {
+                System.out.println("No results found for the given criteria.");
+                return;
+            }
+
+            // Menghitung ISBN yang paling banyak dipinjam
+            Map<String, Integer> isbnCountMap = new HashMap<>();
+            String mostFrequentIsbn = "";
+            int maxCount = 0;
+
+            for (Peminjaman_1 a : results) {
+                String isbn = a.getIsbn().getIsbn();
+                int count = isbnCountMap.getOrDefault(isbn, 0) + 1;
+                isbnCountMap.put(isbn, count);
+                if (count > maxCount) {
+                    maxCount = count;
+                    mostFrequentIsbn = isbn;
+                }
+            }
+
+            // Load the JasperReports design file
+            InputStream inputStream = Peminjaman.class.getResourceAsStream("Many.jrxml");
+            JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+            // Fill the report with data
+            Map<String, Object> parameter = new HashMap<>();
+            parameter.put("mostFrequentIsbn", mostFrequentIsbn);
+            parameter.put("maxCount", maxCount);
+            
+            TypedQuery<Peminjaman_1> queryGetBukuByIsbn = em.createNamedQuery("Peminjaman_1.findByIsbn", Peminjaman_1.class);
+            queryGetBukuByIsbn.setParameter("isbn", mostFrequentIsbn);
+            
+           // List<Peminjaman_1> resultIsbnTerbanyak = queryGetBukuByIsbn.getResultList();
+            
+            JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(queryGetBukuByIsbn.getResultList());
+            parameter.put("peminjamanDataSource", dataSource);
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, dataSource);
+
+            // Show the report
+            JasperViewer viewer = new JasperViewer(jasperPrint, false);
+            viewer.setVisible(true);
+
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_banyakActionPerformed
+
+    private void opsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opsiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_opsiActionPerformed
+
+    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String idPeminjaman = nomer.getText();
+        String nama = anggota.getText();
+        String judul = buku.getText();
+        String kategori = genre.getText();
+        String tanggalPeminjaman = format.format(pinjam.getDate());
+        String tanggalKembali = format.format(kembali.getDate());
+        String angkatan = kelas.getText();
+        String status = (String) opsi.getSelectedItem();
+
+        EntityManager entityManager = Persistence.createEntityManagerFactory("UASPBOPU").createEntityManager();
+        entityManager.getTransaction().begin();
+        TypedQuery<Peminjaman_1> queryfindByIdPeminjaman = entityManager.createNamedQuery("Peminjaman_1.findByIdPeminjaman", Peminjaman_1.class);
+        TypedQuery<Peminjaman_1> setParameter = queryfindByIdPeminjaman.setParameter("idPeminjaman", idPeminjaman);
+        Peminjaman_1 firstEntity = queryfindByIdPeminjaman.getSingleResult();
+        if (firstEntity != null) {
+            firstEntity.setIdPeminjaman(idPeminjaman);
+            firstEntity.setNama(nama);
+            firstEntity.setJudul(judul);
+            firstEntity.setAngkatan(angkatan);
+            firstEntity.setStatus(status);
+
+            // Set tanggal peminjaman buku
+            try {
+                Date datePeminjaman = format.parse(tanggalPeminjaman);
+                Date dateKembali = format.parse(tanggalKembali);
+                firstEntity.setTanggalPeminjaman(datePeminjaman);
+                firstEntity.setTanggalKembali(dateKembali);
+
+            } catch (ParseException e) {
+                // Tangani kesalahan jika terjadi kesalahan parsing tanggal
+                e.printStackTrace(); // Gantilah ini dengan penanganan yang sesuai
+            }
+
+            // Commit transaksi
+            entityManager.getTransaction().commit();
+            this.peringatan("Update berhasil");
+        } else {
+            this.peringatan("Update gagal");
+        }
+        this.tampil();
+
+    }//GEN-LAST:event_UpdateActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Peminjaman.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Peminjaman().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Update;
+    private javax.swing.JTextField anggota;
+    private javax.swing.JButton banyak;
+    private javax.swing.JTextField buku;
+    private javax.swing.JTextField cariii;
+    private javax.swing.JButton delete;
+    private javax.swing.JTextField genre;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField kelas;
+    private com.toedter.calendar.JDateChooser kembali;
+    private javax.swing.JTextField kode;
+    private javax.swing.JButton lanjutan;
+    private javax.swing.JButton masuk;
+    private javax.swing.JTextField nomer;
+    private javax.swing.JComboBox<String> opsi;
+    private javax.swing.JComboBox<String> pilihan;
+    private com.toedter.calendar.JDateChooser pinjam;
+    private javax.swing.JButton print;
+    // End of variables declaration//GEN-END:variables
+
+    private static class bulanan extends Bulanan {
+
+        public bulanan() {
+        }
+    }
+}

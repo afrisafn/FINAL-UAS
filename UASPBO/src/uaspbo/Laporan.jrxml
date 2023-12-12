@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4deeac5a-52a7-483e-b794-ed195249b01b">
+	<property name="ireport.zoom" value="2.3579476910000166"/>
+	<property name="ireport.x" value="262"/>
+	<property name="ireport.y" value="246"/>
+	<parameter name="querySearch" class="java.lang.String"/>
+	<parameter name="searchBy" class="java.lang.String"/>
+	<field name="judulBuku" class="java.lang.String"/>
+	<field name="subJudul" class="java.lang.String"/>
+	<field name="pengarang" class="java.lang.String"/>
+	<field name="penerbit" class="java.lang.String"/>
+	<field name="halamanBuku" class="java.lang.String"/>
+	<field name="isbn" class="java.lang.String"/>
+	<field name="tahunTerbit" class="java.lang.String"/>
+	<field name="kategoriId.jenis" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="1" y="10" width="554" height="58" forecolor="#CCCCFF" backcolor="#CCCCFF" uuid="0bb46cec-e8c6-4164-84ed-cc3abf2155eb"/>
+			</frame>
+			<staticText>
+				<reportElement x="116" y="10" width="295" height="58" uuid="0191ff61-5002-437d-8fce-e64078325666"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="36" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Laporan Buku]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="66" splitType="Stretch">
+			<textField>
+				<reportElement x="38" y="16" width="468" height="37" uuid="daf881d4-479f-4cb4-8d48-d2512d9b55eb"/>
+				<textFieldExpression><![CDATA["Hasil pencarian dari " + $P{querySearch} +" berdasarkan pada kolom " + $P{searchBy} +" hasilnya adalah:"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="52" y="0" width="96" height="20" uuid="fc8a3181-0cdc-447a-9a1a-b777fdb3f37c"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Judul buku]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="52" height="20" uuid="c90d70f1-ca50-4598-b55a-95609c6029f1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[isbn ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="148" y="0" width="60" height="20" uuid="cd602170-3a3e-47b5-9bed-649c9938d512"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Sub judul ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="275" y="0" width="65" height="20" uuid="d02bd873-66ba-4596-94f3-5f32b427cdd6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Penerbit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="0" width="67" height="20" uuid="87d85a68-01fc-400c-8ba8-f35ff096f999"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Pengarang]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="483" y="0" width="71" height="20" uuid="3cd40e9c-e85a-4c67-b957-812a9ab03ed4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Kategori]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="412" y="0" width="71" height="20" uuid="1515f372-fc10-4f80-bbdb-bd491206e6b4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Tahun terbit ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="72" height="20" uuid="24d0857a-f77a-49e9-82dc-23322300bff1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Halaman buku]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="52" y="0" width="96" height="21" uuid="9664e076-3a48-4b8a-b595-deb954e8383c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{judulBuku}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="148" y="0" width="60" height="21" uuid="57b9c6d1-3da8-4541-86b0-24b2dc6275f8"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{subJudul}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="275" y="0" width="65" height="21" uuid="6238732a-c31a-441b-a59a-b37521b8dc04"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{penerbit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="72" height="21" uuid="80d22c59-c6f1-4a07-9edc-a695f0b2a39a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{halamanBuku}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="0" width="67" height="21" uuid="a66a9c93-10e9-4b5f-a97b-b9dc28364a2c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pengarang}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="52" height="21" uuid="81960404-239a-4ee3-8be9-9ad3e0ef9ea6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{isbn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="412" y="0" width="71" height="21" uuid="0f6b8362-be15-4455-885a-af87ef404f7a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{tahunTerbit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="483" y="0" width="71" height="21" uuid="93c636cd-1a02-451d-98f5-19e7177deab0"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{kategoriId.jenis}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

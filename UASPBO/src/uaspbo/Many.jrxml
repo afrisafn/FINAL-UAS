@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="eb18db7b-2510-4e30-9299-9362a624ab31">
+	<property name="ireport.zoom" value="2.143588810000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="mostFrequentIsbn" class="java.lang.String"/>
+	<parameter name="maxCount" class="java.lang.Integer"/>
+	<field name="idPeminjaman" class="java.lang.String"/>
+	<field name="judul" class="java.lang.String"/>
+	<field name="isbn" class="uaspbo.Buku_1"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="nama" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="57" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="57" forecolor="#FFFFFF" backcolor="#9999FF" uuid="318ed6f4-ec19-4f51-886f-08873f2b1573"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="59" y="12" width="441" height="35" forecolor="#FFFFFF" uuid="b5c47353-4598-4869-9603-f78d22e6104a"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Laporan Peminjaman Terbanyak]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="53" splitType="Stretch">
+			<textField>
+				<reportElement x="59" y="10" width="338" height="16" uuid="b0e20c55-8b3a-4f16-9a32-05c195b74b4f"/>
+				<textFieldExpression><![CDATA["Buku terbanyak dipinjam berdasarkan ISBN:" +$P{mostFrequentIsbn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="27" width="338" height="16" uuid="59a181e4-30f4-4af9-a53d-797b6070da88"/>
+				<textFieldExpression><![CDATA["Jumlah terbanyak dipinjam:" +$P{maxCount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="19" splitType="Stretch">
+			<staticText>
+				<reportElement x="58" y="0" width="67" height="19" uuid="1d6efe11-510b-409c-92e1-0c01e2ed7dbb"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Id peminjaman]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="125" y="0" width="68" height="19" uuid="50c84706-d90a-4d4c-9454-0f3b7139124a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="193" y="0" width="66" height="19" uuid="7a631367-17c9-41dc-87ae-0d1f550ad14a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Isbn]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="259" y="0" width="115" height="19" uuid="f4d26433-be6b-428d-8f96-54219d9e352e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Judul buku]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="0" width="68" height="19" uuid="489f1c8b-e7d9-43b8-84b6-fd87c004794e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Kategori]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="442" y="0" width="74" height="19" uuid="6626dc65-e9f0-4a76-a364-44d8936d798d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="58" y="0" width="67" height="20" uuid="8aeceeb7-246d-459d-831f-ce36cfeb5757"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{idPeminjaman}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="125" y="0" width="68" height="20" uuid="7984a968-16d0-4d24-9a48-1f47f841ae84"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="193" y="0" width="66" height="20" uuid="89b52095-51dc-4769-bc53-f0115e5b9bc6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{isbn}.getIsbn()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="259" y="0" width="115" height="20" uuid="baaec6c5-d2e2-4a01-82c3-5674c2d158a5"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{judul}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="0" width="74" height="20" uuid="b286a65c-0966-45f0-8c33-f8dd6f4d2487"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="374" y="0" width="68" height="20" uuid="58a5764f-1315-4291-b4c2-8e0a608ab7dd"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{isbn}.getKategoriId().getJenis()]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
